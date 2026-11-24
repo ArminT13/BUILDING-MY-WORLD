@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useState } from 'react'
 import { HudOverlay, type VisualQualityMode } from './components/HudOverlay'
 import { ProgressSpine } from './components/ProgressSpine'
+import { ProjectChamberModal } from './components/ProjectChamberModal'
 import { WorldCanvas } from './components/WorldCanvas'
 import { WorldSections } from './components/WorldSections'
 import {
   BLUEPRINT_MILESTONES,
   CORE_SKILLS,
+  PROJECT_CHAMBERS,
   type ProjectChamber,
   type SectionId,
 } from './data/portfolio'
@@ -19,6 +21,7 @@ export function App() {
   )
   const [selectedSkillId, setSelectedSkillId] = useState<string>(CORE_SKILLS[0].id)
   const [activeChamberIndex, setActiveChamberIndex] = useState<number>(0)
+  const [openChamberId, setOpenChamberId] = useState<string | null>(null)
   const [qualityMode, setQualityMode] = useState<VisualQualityMode>('auto')
   const [webglAvailable, setWebglAvailable] = useState<boolean>(false)
   const [reducedMotion, setReducedMotion] = useState<boolean>(() => {
@@ -36,25 +39,51 @@ export function App() {
 
   const { scrollStateRef, scrollToSection } = useWorldScroll({
     reducedMotion,
-    scrollLocked: false,
+    scrollLocked: openChamberId !== null,
     onSectionChange: setActiveSectionId,
     onProgressPercentChange: setScrollProgress,
-    onScrollChamberIndexChange: setActiveChamberIndex,
+    onScrollChamberIndexChange: (idx) => {
+      if (openChamberId === null) {
+        setActiveChamberIndex(idx)
+      }
+    },
   })
 
   const handleSelectChamberFromUi = useCallback(
-    (_chamber: ProjectChamber, index: number) => {
+    (chamber: ProjectChamber, index: number) => {
       setActiveChamberIndex(index)
+      setOpenChamberId(chamber.id)
     },
     [],
   )
 
   const handleSelectChamberFrom3D = useCallback(
-    (_chamberId: string, index: number) => {
+    (chamberId: string, index: number) => {
       setActiveChamberIndex(index)
+      setOpenChamberId(chamberId)
     },
     [],
   )
+
+  const handleStepChamber = useCallback(
+    (delta: -1 | 1) => {
+      const currentIdx = PROJECT_CHAMBERS.findIndex(
+        (c) => c.id === openChamberId,
+      )
+      const baseIdx = currentIdx >= 0 ? currentIdx : activeChamberIndex
+      const nextIdx =
+        (baseIdx + delta + PROJECT_CHAMBERS.length) % PROJECT_CHAMBERS.length
+      setActiveChamberIndex(nextIdx)
+      setOpenChamberId(PROJECT_CHAMBERS[nextIdx].id)
+    },
+    [openChamberId, activeChamberIndex],
+  )
+
+  const openChamberIndex = openChamberId
+    ? PROJECT_CHAMBERS.findIndex((c) => c.id === openChamberId)
+    : -1
+  const openChamber =
+    openChamberIndex >= 0 ? PROJECT_CHAMBERS[openChamberIndex] : null
 
   return (
     <div className="relative min-h-screen bg-[#07090E] text-[#F8FAFC]">
@@ -99,6 +128,14 @@ export function App() {
         onSelectSkill={setSelectedSkillId}
         onSelectChamber={handleSelectChamberFromUi}
         onNavigateSection={scrollToSection}
+      />
+
+      <ProjectChamberModal
+        project={openChamber}
+        totalCount={PROJECT_CHAMBERS.length}
+        currentIndex={openChamberIndex >= 0 ? openChamberIndex : 0}
+        onClose={() => setOpenChamberId(null)}
+        onStepChamber={handleStepChamber}
       />
     </div>
   )
