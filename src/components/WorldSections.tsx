@@ -151,7 +151,10 @@ export function WorldSections({
       >
         <div className="sticky top-0 flex min-h-[100dvh] items-center px-4 py-24 sm:px-8 lg:px-14">
           <div className="mx-auto grid w-full max-w-7xl items-center gap-8 lg:grid-cols-12">
-            <div className="arch-panel rounded-2xl p-6 sm:p-8 lg:col-span-6">
+            <div
+              data-interactive-ui="true"
+              className="arch-panel rounded-2xl p-6 sm:p-8 lg:col-span-6"
+            >
               <div className="mb-3 flex items-center justify-between">
                 <span className="font-display text-[11px] font-medium tracking-[0.22em] text-[#00E5FF] uppercase">
                   02 // The Blueprint
@@ -246,7 +249,10 @@ export function WorldSections({
           <div className="mx-auto grid w-full max-w-7xl items-end gap-8 lg:grid-cols-12">
             {/* Left space showcases the 3D multi-level core & interactive nodes */}
             <div className="order-2 lg:order-1 lg:col-span-7">
-              <div className="arch-panel rounded-2xl p-6 sm:p-7">
+              <div
+                data-interactive-ui="true"
+                className="arch-panel rounded-2xl p-6 sm:p-7"
+              >
                 <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
                   <span className="font-display text-[11px] font-medium tracking-[0.22em] text-[#00E5FF] uppercase">
                     03 // The Core Systems
@@ -291,7 +297,10 @@ export function WorldSections({
 
             {/* Right: Selected Core System Node Inspector */}
             <div className="order-1 lg:order-2 lg:col-span-5">
-              <div className="arch-panel arch-panel-active rounded-2xl p-6 sm:p-7">
+              <div
+                data-interactive-ui="true"
+                className="arch-panel arch-panel-active rounded-2xl p-6 sm:p-7"
+              >
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-display text-[11px] tracking-[0.2em] text-[#00E5FF] uppercase">
                     Level 0{selectedSkill.levelRing} // {selectedSkill.category}
@@ -442,7 +451,10 @@ export function WorldSections({
       >
         <div className="sticky top-0 flex min-h-[100dvh] items-center px-4 py-24 sm:px-8 lg:px-14">
           <div className="mx-auto w-full max-w-4xl">
-            <div className="arch-panel rounded-3xl p-7 sm:p-10">
+            <div
+              data-interactive-ui="true"
+              className="arch-panel rounded-3xl p-7 sm:p-10"
+            >
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#00E5FF]/35 bg-[#00E5FF]/10 px-3.5 py-1.5">
                 <Sparkles className="h-3.5 w-3.5 text-[#00E5FF]" aria-hidden="true" />
                 <span className="font-display text-[11px] font-medium tracking-[0.2em] text-[#00E5FF] uppercase">

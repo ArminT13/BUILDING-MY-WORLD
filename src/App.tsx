@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useState } from 'react'
-import { ArchitecturalFallback } from './components/ArchitecturalFallback'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { HudOverlay, type VisualQualityMode } from './components/HudOverlay'
 import { ProgressSpine } from './components/ProgressSpine'
+import { WorldCanvas } from './components/WorldCanvas'
 import { WorldSections } from './components/WorldSections'
 import {
   BLUEPRINT_MILESTONES,
@@ -10,6 +10,7 @@ import {
   type ProjectChamber,
   type SectionId,
 } from './data/portfolio'
+import type { WorldScrollState } from './world/WorldEngine'
 
 function getSectionForProgress(progress: number): SectionId {
   for (const section of SECTIONS) {
@@ -21,6 +22,18 @@ function getSectionForProgress(progress: number): SectionId {
   return 'foundation'
 }
 
+function computeSectionProgresses(globalProgress: number): WorldScrollState {
+  const clamp01 = (v: number) => Math.max(0, Math.min(1, v))
+  return {
+    globalProgress: clamp01(globalProgress),
+    foundationProgress: clamp01(0.35 + globalProgress * 4.5),
+    blueprintProgress: clamp01((globalProgress - 0.1) / 0.25),
+    coreProgress: clamp01((globalProgress - 0.3) / 0.25),
+    chambersProgress: clamp01((globalProgress - 0.52) / 0.26),
+    horizonProgress: clamp01((globalProgress - 0.78) / 0.22),
+  }
+}
+
 export function App() {
   const [scrollProgress, setScrollProgress] = useState(0)
   const [activeSectionId, setActiveSectionId] = useState<SectionId>('foundation')
@@ -30,10 +43,13 @@ export function App() {
   const [selectedSkillId, setSelectedSkillId] = useState<string>(CORE_SKILLS[0].id)
   const [activeChamberIndex, setActiveChamberIndex] = useState<number>(0)
   const [qualityMode, setQualityMode] = useState<VisualQualityMode>('auto')
+  const [webglAvailable, setWebglAvailable] = useState<boolean>(false)
   const [reducedMotion, setReducedMotion] = useState<boolean>(() => {
     if (typeof window === 'undefined' || !window.matchMedia) return false
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches
   })
+
+  const scrollStateRef = useRef<WorldScrollState>(computeSectionProgresses(0))
 
   useEffect(() => {
     if (typeof window === 'undefined' || !window.matchMedia) return
@@ -49,6 +65,7 @@ export function App() {
         document.documentElement.scrollHeight - window.innerHeight
       const progress =
         maxScroll > 0 ? Math.max(0, Math.min(1, window.scrollY / maxScroll)) : 0
+      scrollStateRef.current = computeSectionProgresses(progress)
       setScrollProgress(progress)
       setActiveSectionId(getSectionForProgress(progress))
     }
@@ -58,16 +75,26 @@ export function App() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const handleNavigateSection = useCallback((sectionId: SectionId) => {
-    const element = document.getElementById(sectionId)
-    if (element && typeof element.scrollIntoView === 'function') {
-      element.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' })
-    }
-    setActiveSectionId(sectionId)
-  }, [reducedMotion])
+  const handleNavigateSection = useCallback(
+    (sectionId: SectionId) => {
+      const element = document.getElementById(sectionId)
+      if (element && typeof element.scrollIntoView === 'function') {
+        element.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' })
+      }
+      setActiveSectionId(sectionId)
+    },
+    [reducedMotion],
+  )
 
-  const handleSelectChamber = useCallback(
+  const handleSelectChamberFromUi = useCallback(
     (_chamber: ProjectChamber, index: number) => {
+      setActiveChamberIndex(index)
+    },
+    [],
+  )
+
+  const handleSelectChamberFrom3D = useCallback(
+    (_chamberId: string, index: number) => {
       setActiveChamberIndex(index)
     },
     [],
@@ -75,11 +102,18 @@ export function App() {
 
   return (
     <div className="relative min-h-screen bg-[#07090E] text-[#F8FAFC]">
-      <ArchitecturalFallback
+      <WorldCanvas
+        scrollStateRef={scrollStateRef}
         scrollProgress={scrollProgress}
         activeSectionId={activeSectionId}
+        selectedMilestoneId={selectedMilestoneId}
+        selectedSkillId={selectedSkillId}
+        activeChamberIndex={activeChamberIndex}
         reducedMotion={reducedMotion}
-        reason="staging"
+        qualityMode={qualityMode}
+        onWebGLAvailabilityChange={setWebglAvailable}
+        onSelectSkill={setSelectedSkillId}
+        onSelectChamber={handleSelectChamberFrom3D}
       />
 
       <HudOverlay
@@ -87,7 +121,7 @@ export function App() {
         scrollProgress={scrollProgress}
         reducedMotion={reducedMotion}
         qualityMode={qualityMode}
-        webglAvailable={false}
+        webglAvailable={webglAvailable}
         onNavigateSection={handleNavigateSection}
         onToggleQualityMode={() =>
           setQualityMode((prev) => (prev === 'auto' ? 'lite' : 'auto'))
@@ -107,7 +141,7 @@ export function App() {
         activeChamberIndex={activeChamberIndex}
         onSelectMilestone={setSelectedMilestoneId}
         onSelectSkill={setSelectedSkillId}
-        onSelectChamber={handleSelectChamber}
+        onSelectChamber={handleSelectChamberFromUi}
         onNavigateSection={handleNavigateSection}
       />
     </div>
