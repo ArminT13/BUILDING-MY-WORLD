@@ -152,6 +152,7 @@ export function WorldSections({
         <div className="sticky top-0 flex min-h-[100dvh] items-center px-4 py-24 sm:px-8 lg:px-14">
           <div className="mx-auto grid w-full max-w-7xl items-center gap-8 lg:grid-cols-12">
             <div
+              data-reveal
               data-interactive-ui="true"
               className="arch-panel rounded-2xl p-6 sm:p-8 lg:col-span-6"
             >
@@ -250,6 +251,7 @@ export function WorldSections({
             {/* Left space showcases the 3D multi-level core & interactive nodes */}
             <div className="order-2 lg:order-1 lg:col-span-7">
               <div
+                data-reveal
                 data-interactive-ui="true"
                 className="arch-panel rounded-2xl p-6 sm:p-7"
               >
@@ -298,6 +300,7 @@ export function WorldSections({
             {/* Right: Selected Core System Node Inspector */}
             <div className="order-1 lg:order-2 lg:col-span-5">
               <div
+                data-reveal
                 data-interactive-ui="true"
                 className="arch-panel arch-panel-active rounded-2xl p-6 sm:p-7"
               >
@@ -452,6 +455,7 @@ export function WorldSections({
         <div className="sticky top-0 flex min-h-[100dvh] items-center px-4 py-24 sm:px-8 lg:px-14">
           <div className="mx-auto w-full max-w-4xl">
             <div
+              data-reveal
               data-interactive-ui="true"
               className="arch-panel rounded-3xl p-7 sm:p-10"
             >

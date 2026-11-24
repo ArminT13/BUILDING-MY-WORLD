@@ -326,6 +326,7 @@ export class WorldEngine {
 
     const elapsed = (performance.now() - this.startTime) * 0.001
     const motionTime = this.reducedMotion ? 0 : elapsed
+    const introEase = this.reducedMotion ? 1 : Math.min(1, elapsed / 1.4)
 
     // Smooth camera interpolation toward scroll target
     const lerpFactor = this.reducedMotion ? 1 : 0.1
@@ -359,29 +360,47 @@ export class WorldEngine {
       this.camLookAt.z + 6,
     )
 
+    // Progressive visibility gating keeps early void uncluttered and avoids wasted draws
+    const foundationBuild = Math.min(
+      1,
+      introEase * 0.72 + this.scrollState.foundationProgress * 0.55,
+    )
+    this.blueprint.group.visible = this.scrollState.blueprintProgress > 0.01
+    this.coreSystems.group.visible = this.scrollState.coreProgress > 0.01
+    this.projectChambers.group.visible = this.scrollState.chambersProgress > 0.01
+    this.horizon.group.visible = this.scrollState.horizonProgress > 0.01
+
     // Update modular architectural constructions
     this.foundation.update(
       motionTime,
-      this.scrollState.foundationProgress,
+      foundationBuild,
       this.smoothedGlobalProgress,
     )
-    this.blueprint.update(
-      motionTime,
-      this.scrollState.blueprintProgress,
-      this.selectedMilestoneId,
-    )
-    this.coreSystems.update(
-      motionTime,
-      this.scrollState.coreProgress,
-      this.selectedSkillId,
-    )
-    this.projectChambers.update(
-      motionTime,
-      this.scrollState.chambersProgress,
-      this.activeChamberIndex,
-      this.hoveredChamberId,
-    )
-    this.horizon.update(motionTime, this.scrollState.horizonProgress)
+    if (this.blueprint.group.visible) {
+      this.blueprint.update(
+        motionTime,
+        this.scrollState.blueprintProgress,
+        this.selectedMilestoneId,
+      )
+    }
+    if (this.coreSystems.group.visible) {
+      this.coreSystems.update(
+        motionTime,
+        this.scrollState.coreProgress,
+        this.selectedSkillId,
+      )
+    }
+    if (this.projectChambers.group.visible) {
+      this.projectChambers.update(
+        motionTime,
+        this.scrollState.chambersProgress,
+        this.activeChamberIndex,
+        this.hoveredChamberId,
+      )
+    }
+    if (this.horizon.group.visible) {
+      this.horizon.update(motionTime, this.scrollState.horizonProgress)
+    }
     this.particles.update(
       motionTime,
       this.smoothedGlobalProgress,
