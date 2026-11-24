@@ -1,4 +1,10 @@
 import '@testing-library/jest-dom/vitest'
+import { cleanup } from '@testing-library/react'
+import { afterEach } from 'vitest'
+
+afterEach(() => {
+  cleanup()
+})
 
 // Provide clean browser API mocks missing in jsdom
 Object.defineProperty(window, 'matchMedia', {
