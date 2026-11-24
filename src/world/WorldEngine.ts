@@ -166,7 +166,18 @@ export class WorldEngine {
       passive: true,
     })
     window.addEventListener('click', this.handleClick)
+    document.addEventListener('visibilitychange', this.handleVisibilityChange)
     this.canvas.addEventListener('webglcontextlost', this.handleContextLost)
+  }
+
+  private handleVisibilityChange = () => {
+    if (this.disposed) return
+    if (document.hidden) {
+      window.cancelAnimationFrame(this.rafId)
+      this.rafId = 0
+    } else if (this.rafId === 0) {
+      this.animate()
+    }
   }
 
   private handleContextLost = (event: Event) => {
@@ -416,6 +427,7 @@ export class WorldEngine {
     window.removeEventListener('resize', this.handleResize)
     window.removeEventListener('pointermove', this.handlePointerMove)
     window.removeEventListener('click', this.handleClick)
+    document.removeEventListener('visibilitychange', this.handleVisibilityChange)
     this.canvas.removeEventListener('webglcontextlost', this.handleContextLost)
     document.body.style.cursor = ''
 

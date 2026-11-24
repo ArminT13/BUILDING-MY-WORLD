@@ -27,9 +27,13 @@ export function ProjectChamberModal({
   onStepChamber,
 }: ProjectChamberModalProps) {
   const closeButtonRef = useRef<HTMLButtonElement | null>(null)
+  const previousFocusRef = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
     if (!project) return
+    if (document.activeElement instanceof HTMLElement) {
+      previousFocusRef.current = document.activeElement
+    }
     closeButtonRef.current?.focus()
 
     const onKeyDown = (event: KeyboardEvent) => {
@@ -43,7 +47,10 @@ export function ProjectChamberModal({
     }
 
     window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+      previousFocusRef.current?.focus()
+    }
   }, [project, onClose, onStepChamber])
 
   if (!project) return null

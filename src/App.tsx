@@ -87,6 +87,16 @@ export function App() {
 
   return (
     <div className="relative min-h-screen bg-[#07090E] text-[#F8FAFC]">
+      <a
+        href="#foundation"
+        onClick={(event) => {
+          event.preventDefault()
+          scrollToSection('foundation')
+        }}
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-full focus:bg-[#00E5FF] focus:px-4 focus:py-2 focus:font-display focus:text-xs focus:font-semibold focus:text-[#07090E]"
+      >
+        Skip to main architectural experience
+      </a>
       <WorldCanvas
         scrollStateRef={scrollStateRef}
         scrollProgress={scrollProgress}

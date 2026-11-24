@@ -148,6 +148,8 @@ export function buildProjectChambers(
     pod.position.copy(basePos)
 
     const shellMat = materials.glassDark.clone()
+    shellMat.opacity = 0.2
+    shellMat.depthWrite = false
     const hitShell = new THREE.Mesh(chamberShellGeo, shellMat)
     hitShell.userData = {
       interactiveType: 'chamber',

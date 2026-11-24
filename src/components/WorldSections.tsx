@@ -71,13 +71,13 @@ export function WorldSections({
         aria-labelledby="foundation-heading"
         className="relative min-h-[165vh]"
       >
-        <div className="sticky top-0 flex min-h-[100dvh] items-center px-4 pt-24 pb-16 sm:px-8 lg:px-14">
+        <div className="sticky top-0 flex min-h-[100dvh] items-center px-4 pt-24 pb-16 sm:px-8 lg:pl-14 lg:pr-44 xl:pr-48">
           <div className="mx-auto w-full max-w-7xl">
             <div className="max-w-2xl">
-              <div className="mb-5 inline-flex items-center gap-2.5 rounded-full border border-[#00E5FF]/30 bg-[#07090E]/75 px-3.5 py-1.5 backdrop-blur-md">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#00E5FF] shadow-[0_0_8px_#00E5FF]" />
-                <span className="font-display text-[11px] font-medium tracking-[0.22em] text-[#00E5FF] uppercase">
-                  01 // The Foundation · Interactive 3D World
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#00E5FF]/30 bg-[#07090E]/75 px-3 py-1.5 backdrop-blur-md sm:gap-2.5 sm:px-3.5">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#00E5FF] shadow-[0_0_8px_#00E5FF]" />
+                <span className="font-display text-[10px] font-medium tracking-[0.16em] text-[#00E5FF] uppercase sm:text-[11px] sm:tracking-[0.22em]">
+                  01 // The Foundation · Interactive 3D
                 </span>
               </div>
 
@@ -149,7 +149,7 @@ export function WorldSections({
         aria-labelledby="blueprint-heading"
         className="relative min-h-[195vh]"
       >
-        <div className="sticky top-0 flex min-h-[100dvh] items-center px-4 py-24 sm:px-8 lg:px-14">
+        <div className="sticky top-0 flex min-h-[100dvh] items-center px-4 py-24 sm:px-8 lg:pl-14 lg:pr-44 xl:pr-48">
           <div className="mx-auto grid w-full max-w-7xl items-center gap-8 lg:grid-cols-12">
             <div
               data-reveal
@@ -246,7 +246,7 @@ export function WorldSections({
         aria-labelledby="core-systems-heading"
         className="relative min-h-[205vh]"
       >
-        <div className="sticky top-0 flex min-h-[100dvh] items-center px-4 py-24 sm:px-8 lg:px-14">
+        <div className="sticky top-0 flex min-h-[100dvh] items-center px-4 py-24 sm:px-8 lg:pl-14 lg:pr-44 xl:pr-48">
           <div className="mx-auto grid w-full max-w-7xl items-end gap-8 lg:grid-cols-12">
             {/* Left space showcases the 3D multi-level core & interactive nodes */}
             <div className="order-2 lg:order-1 lg:col-span-7">
@@ -363,7 +363,7 @@ export function WorldSections({
         aria-labelledby="chambers-heading"
         className="relative min-h-[245vh]"
       >
-        <div className="sticky top-0 flex min-h-[100dvh] items-center px-4 py-24 sm:px-8 lg:px-14">
+        <div className="sticky top-0 flex min-h-[100dvh] items-end px-4 pt-28 pb-10 sm:px-8 sm:pb-14 lg:pl-14 lg:pr-44 xl:pr-48">
           <div className="mx-auto w-full max-w-7xl">
             <div className="mb-6 max-w-2xl">
               <div className="mb-2 flex items-center gap-2 font-display text-[11px] font-medium tracking-[0.22em] text-[#00E5FF] uppercase">
@@ -452,7 +452,7 @@ export function WorldSections({
         aria-labelledby="horizon-heading"
         className="relative min-h-[165vh]"
       >
-        <div className="sticky top-0 flex min-h-[100dvh] items-center px-4 py-24 sm:px-8 lg:px-14">
+        <div className="sticky top-0 flex min-h-[100dvh] items-center px-4 py-24 sm:px-8 lg:pl-14 lg:pr-44 xl:pr-48">
           <div className="mx-auto w-full max-w-4xl">
             <div
               data-reveal
@@ -478,7 +478,7 @@ export function WorldSections({
               </p>
 
               {/* Contact & Verified Links */}
-              <div className="mt-8 grid gap-3 sm:grid-cols-3">
+              <div className="mt-8 grid gap-3 lg:grid-cols-3">
                 {CONTACT_LINKS.map((item) => {
                   if (!item.isPlaceholder && item.href) {
                     return (
@@ -536,7 +536,7 @@ export function WorldSections({
                         )}
                       </div>
                       <div className="mt-3">
-                        <span className="block font-display text-sm text-[#F8FAFC]/80">
+                        <span className="block break-words font-display text-sm text-[#F8FAFC]/80">
                           {item.value}
                         </span>
                         {item.placeholderNote && (

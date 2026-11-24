@@ -27,11 +27,11 @@ export class CameraSplineRig {
         // 03 Core Systems (intimate look into interlocking skill rings)
         new THREE.Vector3(8.6, 28.4, 13.0),
         // Transition into Project Chambers
-        new THREE.Vector3(4.5, 36.2, 17.0),
-        // 04 Project Chambers (gallery sweep across suspended chambers)
-        new THREE.Vector3(0.0, 41.8, 18.2),
+        new THREE.Vector3(4.5, 36.6, 18.5),
+        // 04 Project Chambers (gallery sweep framing all 5 suspended chambers in upper viewport)
+        new THREE.Vector3(0.0, 42.2, 21.2),
         // Transition to Horizon pull-back
-        new THREE.Vector3(6.5, 49.0, 24.5),
+        new THREE.Vector3(6.5, 49.0, 25.5),
         // 05 Horizon (panoramic full-structure reveal)
         new THREE.Vector3(14.5, 55.5, 33.0),
       ],
@@ -48,7 +48,7 @@ export class CameraSplineRig {
         new THREE.Vector3(0.8, 19.2, 0.0),
         new THREE.Vector3(-1.2, 26.2, 0.0),
         new THREE.Vector3(-0.4, 33.4, -0.5),
-        new THREE.Vector3(0.0, 39.5, -1.2),
+        new THREE.Vector3(0.0, 38.1, -0.8),
         new THREE.Vector3(0.0, 33.0, 0.0),
         new THREE.Vector3(0.0, 26.5, 0.0),
       ],
