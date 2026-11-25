@@ -13,7 +13,7 @@ An interactive 3D architectural developer portfolio for **Armin Tayebi** — tel
    - **FreelanceFlow** (`github.com/ArminT13/FreelanceFlow`)
    - **Predict & Bet** (`github.com/ArminT13/predict-bet-telegram-bot`)
    - **Warehouse Management System** (`github.com/ArminT13/warehouse-management`)
-5. **05 // THE HORIZON** — Panoramic pullback revealing the completed structure (`THIS WORLD IS STILL UNDER CONSTRUCTION.`), verified GitHub link, and contact placeholders.
+5. **05 // THE HORIZON** — Panoramic pullback revealing the completed structure (`THIS WORLD IS STILL UNDER CONSTRUCTION.`), alongside verified GitHub, email, and LinkedIn links.
 
 ## Stack & Architecture
 
@@ -35,4 +35,4 @@ npm run preview  # Preview production bundle
 
 ## Updating Placeholders
 
-All profile, skill, project, screenshot-placeholder, email-placeholder, and social-placeholder entries live in [`src/data/portfolio.ts`](src/data/portfolio.ts).
+All profile, skill, project, and screenshot-placeholder entries live in [`src/data/portfolio.ts`](src/data/portfolio.ts).

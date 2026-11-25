@@ -76,12 +76,21 @@ describe('portfolio verified dataset', () => {
     }
   })
 
-  it('marks missing contact email and social links clearly as placeholders', () => {
+  it('provides verified GitHub, email, and LinkedIn contact links', () => {
     expect(OWNER_PROFILE.githubUrl).toBe('https://github.com/ArminT13')
-    const email = CONTACT_LINKS.find((item) => item.id === 'email')
-    expect(email?.isPlaceholder).toBe(true)
+
     const github = CONTACT_LINKS.find((item) => item.id === 'github')
     expect(github?.isPlaceholder).toBe(false)
     expect(github?.href).toBe('https://github.com/ArminT13')
+
+    const email = CONTACT_LINKS.find((item) => item.id === 'email')
+    expect(email?.isPlaceholder).toBe(false)
+    expect(email?.value).toBe('armin35tayebi@gmail.com')
+    expect(email?.href).toBe('mailto:armin35tayebi@gmail.com')
+
+    const linkedin = CONTACT_LINKS.find((item) => item.id === 'linkedin')
+    expect(linkedin?.isPlaceholder).toBe(false)
+    expect(linkedin?.value).toBe('linkedin.com/in/armin-tayebi')
+    expect(linkedin?.href).toBe('https://linkedin.com/in/armin-tayebi')
   })
 })

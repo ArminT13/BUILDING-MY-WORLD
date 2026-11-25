@@ -481,12 +481,13 @@ export function WorldSections({
               <div className="mt-8 grid gap-3 lg:grid-cols-3">
                 {CONTACT_LINKS.map((item) => {
                   if (!item.isPlaceholder && item.href) {
+                    const isExternal = !item.href.startsWith('mailto:')
                     return (
                       <a
                         key={item.id}
                         href={item.href}
-                        target="_blank"
-                        rel="noreferrer"
+                        target={isExternal ? '_blank' : undefined}
+                        rel={isExternal ? 'noreferrer' : undefined}
                         className="group flex flex-col justify-between rounded-2xl border border-[#00E5FF]/35 bg-[#07090E]/75 p-4 transition-colors hover:border-[#00E5FF] hover:bg-[#00E5FF]/10"
                       >
                         <div className="flex items-center justify-between">
@@ -498,7 +499,7 @@ export function WorldSections({
                             aria-hidden="true"
                           />
                         </div>
-                        <span className="mt-3 font-display text-sm font-medium text-[#F8FAFC]">
+                        <span className="mt-3 break-words font-display text-sm font-medium text-[#F8FAFC]">
                           {item.value}
                         </span>
                       </a>

@@ -474,17 +474,15 @@ export const CONTACT_LINKS: readonly ContactLink[] = [
   {
     id: 'email',
     label: 'Email',
-    value: 'armin.tayebi@example.com',
-    href: null,
-    isPlaceholder: true,
-    placeholderNote: 'Email Placeholder — Replace with preferred public address',
+    value: 'armin35tayebi@gmail.com',
+    href: 'mailto:armin35tayebi@gmail.com',
+    isPlaceholder: false,
   },
   {
     id: 'linkedin',
     label: 'LinkedIn',
-    value: 'linkedin.com/in/placeholder',
-    href: null,
-    isPlaceholder: true,
-    placeholderNote: 'Social Link Placeholder — Add when profile URL is ready',
+    value: 'linkedin.com/in/armin-tayebi',
+    href: 'https://linkedin.com/in/armin-tayebi',
+    isPlaceholder: false,
   },
 ] as const
